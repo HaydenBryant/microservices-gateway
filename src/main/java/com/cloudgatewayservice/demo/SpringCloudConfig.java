@@ -6,6 +6,7 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 public class SpringCloudConfig {
@@ -23,6 +24,11 @@ public class SpringCloudConfig {
 
                 .route(r -> r.path("/consumer/**")
                         .uri("http://localhost:8082"))
+
+                .route(r -> r.path("/addUser").and().method(HttpMethod.POST)
+                        .filter(f -> f)
+                        .uri("http://localhost:8082")
+                        )
 
                 .build();
     }
